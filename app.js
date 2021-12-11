@@ -1,6 +1,7 @@
 const express=require("express")
 app=express()
 const sqlite3 = require("sqlite3").verbose();
+
 app.set('view engine','ejs')
 const db=new sqlite3.Database('./test.db',err=>{
   if(err){
@@ -34,15 +35,21 @@ const insert_into=`insert into student (s_id,s_name,address) values
   }
 })*/
 
-
-app.get('/db',(req,res)=>{
-  db.each("select * from student",[],(err,rows)=>{
+app.get('/db',async(req,res)=>{
+  await db.all("select * from student ",(err,rows)=>{
     if(err){
       console.log(err)
     }
-    console.log(rows)
-    }), 
-  res.render("db")
+    else{
+      console.log(rows)
+     // var obj={name:rows}
+    res.render("db",{name:rows})
+    }
+    })
+})
+
+app.get('/select',(req,res)=>{
+  res.render('select')
 })
 
 app.get('/',(req,res)=>{
