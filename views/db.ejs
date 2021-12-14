@@ -7,11 +7,19 @@
     <title>db</title>
 </head>
 <body>
+    <style>
+        p{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
     <h1 style="text-align: center;">Database</h1>
     <!--<%= //locals.name %> -->
     <%=// name[0].s_name %> 
     <% for (let i = 0; i < name.length; i++) {%>
-        <p style="text-align: center;"><%= name[i].s_name %> </p>
+        <p ><%= name[i].s_id %> <%= name[i].s_name %> <%= name[i].address %> </p>
         <br>
    <% } %> 
 </body>

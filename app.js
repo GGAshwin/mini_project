@@ -1,6 +1,11 @@
 const express=require("express")
 app=express()
 const sqlite3 = require("sqlite3").verbose();
+const bodyParser = require("body-parser")
+
+app.use(bodyParser.urlencoded({
+  extended:true
+}));
 
 app.set('view engine','ejs')
 const db=new sqlite3.Database('./test.db',err=>{
@@ -56,4 +61,17 @@ app.get('/',(req,res)=>{
   console.log('connected to server')
   res.render("index")
 })
+
+
+app.post("/", function(req, res) {
+  var x=(req.body.name)
+  //console.log(req.body.name)
+  db.all(`select * from student where s_name='${x}'`,(err,rows)=>{
+    console.log(rows)
+  })
+});
+
+
+
+
 app.listen("3000")
